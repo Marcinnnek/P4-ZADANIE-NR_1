@@ -29,20 +29,31 @@ namespace P4_ZADANIE_2
             Console.WriteLine();
             SqlReaderZN(db);
 
+            SqlSingleReaderZN(db);
 
+        }
+
+        private static void SqlSingleReaderZN(DB db)
+        {
+            Console.WriteLine("Podaj Id kategorii");
+            int ID = 1;
+            bool state = int.TryParse(Console.ReadLine(), out ID);
+            var singleCategory = db.GetCategoryByID(ID);
+            Console.WriteLine($"ID: {singleCategory.IDkategorii}: {singleCategory.NazwaKategorii}: {singleCategory.Opis}");
         }
 
         private static void SqlUpdateZN(DB db)
         {
             //db.UpdateCategory(new DBKategorie() { IDkategorii = 15, NazwaKategorii ="xxxxxxxxxxxx", Opis = "yyyyyyyyyyyyyyy" });
             Console.Write("Podaj nową nazwę kategorii: ");
-            
             string NewCategoryName = Console.ReadLine();
+
             while (NewCategoryName.Length >= 20)
             {
                 Console.WriteLine("Maksymalna długość nazwy kategorii wynosi 20 znaków.");
                 NewCategoryName = Console.ReadLine();
             }
+
             Console.Write("Podaj nowy opis kategorii: ");
             string NewDescription = Console.ReadLine();
             db.UpdateCategory(new DBKategorie() { IDkategorii = 15, NazwaKategorii = NewCategoryName, Opis = NewDescription });
@@ -62,10 +73,10 @@ namespace P4_ZADANIE_2
         {
             foreach (DBKategorie kategorie in db.GetCategories())
             {
-                Console.WriteLine($"{kategorie.IDkategorii}: {kategorie.NazwaKategorii}: {kategorie.Opis}");
+                Console.WriteLine($"ID: {kategorie.IDkategorii}: {kategorie.NazwaKategorii}: {kategorie.Opis}");
             }
         }
 
-       
+
     }
 }

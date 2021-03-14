@@ -23,6 +23,12 @@ namespace P4_ZADANIE_2
            return  _dbConnection.Query<DBKategorie>("SELECT * FROM mg.Kategorie");
         }
 
+        public DBKategorie GetCategoryByID(int ID)
+        {
+            return _dbConnection.QuerySingleOrDefault<DBKategorie>("SELECT * FROM mg.Kategorie WHERE IDkategorii = @id",
+                new {id = ID });
+        }
+
         public bool AddCategory( DBKategorie categories)
         {
             var result = _dbConnection.Execute("INSERT INTO mg.Kategorie (IDkategorii, NazwaKategorii, Opis) VALUES (@IDkat, @Nkat, @Op)",
