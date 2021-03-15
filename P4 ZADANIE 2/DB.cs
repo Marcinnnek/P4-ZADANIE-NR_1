@@ -20,19 +20,20 @@ namespace P4_ZADANIE_2
 
         public IEnumerable<DBKategorie> GetCategories()
         {
-           return  _dbConnection.Query<DBKategorie>("SELECT * FROM mg.Kategorie");
+            return _dbConnection.Query<DBKategorie>("SELECT * FROM mg.Kategorie");
         }
 
         public DBKategorie GetCategoryByID(int ID)
         {
-            return _dbConnection.QuerySingleOrDefault<DBKategorie>("SELECT * FROM mg.Kategorie WHERE IDkategorii = @id",
-                new {id = ID });
+            var query = _dbConnection.QuerySingleOrDefault<DBKategorie>("SELECT * FROM mg.Kategorie WHERE IDkategorii = @id",
+                new { id = ID });
+            return query;
         }
 
-        public bool AddCategory( DBKategorie categories)
+        public bool AddCategory(DBKategorie categories)
         {
             var result = _dbConnection.Execute("INSERT INTO mg.Kategorie (IDkategorii, NazwaKategorii, Opis) VALUES (@IDkat, @Nkat, @Op)",
-                new {IDkat = categories.IDkategorii ,Nkat = categories.NazwaKategorii, Op=categories.Opis });
+                new { IDkat = categories.IDkategorii, Nkat = categories.NazwaKategorii, Op = categories.Opis });
             return result == 1;
         }
 
@@ -47,7 +48,7 @@ namespace P4_ZADANIE_2
         public bool UpdateCategory(DBKategorie categories)
         {
             var result = _dbConnection.Execute("UPDATE mg.Kategorie SET NazwaKategorii = @newName, Opis = @newDescription WHERE IDkategorii = @IDkat",
-                new {newName = categories.NazwaKategorii, newDescription = categories.Opis, IDkat = categories.IDkategorii });
+                new { newName = categories.NazwaKategorii, newDescription = categories.Opis, IDkat = categories.IDkategorii });
 
             return result == 1;
         }

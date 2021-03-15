@@ -17,17 +17,17 @@ namespace P4_ZADANIE_2
                             MultiSubnetFailover=False");
 
 
-            SqlInsertZN(db);
-            Console.WriteLine();
-            SqlReaderZN(db);
-            Console.WriteLine();
-            SqlUpdateZN(db);
-            Console.WriteLine();
-            SqlReaderZN(db);
-            Console.WriteLine();
-            SqlDeleteZN(db);
-            Console.WriteLine();
-            SqlReaderZN(db);
+            //SqlInsertZN(db);
+            //Console.WriteLine();
+            //SqlReaderZN(db);
+            //Console.WriteLine();
+            //SqlUpdateZN(db);
+            //Console.WriteLine();
+            //SqlReaderZN(db);
+            //Console.WriteLine();
+            //SqlDeleteZN(db);
+            //Console.WriteLine();
+            //SqlReaderZN(db);
 
             SqlSingleReaderZN(db);
 
@@ -35,11 +35,16 @@ namespace P4_ZADANIE_2
 
         private static void SqlSingleReaderZN(DB db)
         {
-            Console.WriteLine("Podaj Id kategorii");
+            Console.Write("Podaj Id kategorii: ");
             int ID = 1;
             bool state = int.TryParse(Console.ReadLine(), out ID);
             var singleCategory = db.GetCategoryByID(ID);
-            Console.WriteLine($"ID: {singleCategory.IDkategorii}: {singleCategory.NazwaKategorii}: {singleCategory.Opis}");
+            if (singleCategory == null)
+            {
+                Console.WriteLine("W bazie nie ma takiego ID!");
+            }
+            else
+                Console.WriteLine($"ID: {singleCategory.IDkategorii}: {singleCategory.NazwaKategorii}: {singleCategory.Opis}");
         }
 
         private static void SqlUpdateZN(DB db)
